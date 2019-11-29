@@ -13,22 +13,13 @@ public class YouAreEll {
         this.idCtrl = j;
     }
 
-    public static void main(String[] args) {
-        // hmm: is this Dependency Injection?
-        YouAreEll urlhandler = new YouAreEll(new MessageController(), new IdController());
-        System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
-        System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
-    }
-
     public String get_ids() {
-        return MakeURLCall("/ids", "GET", "");
+        return idCtrl.getIds().toString();
+//        return MakeURLCall("/ids", "GET", "");
     }
 
     public String get_messages() {
-        return MakeURLCall("/messages", "GET", "");
+        return "Nada"; //MakeURLCall("/messages", "GET", "");
     }
 
-    public String MakeURLCall(String mainurl, String method, String jpayload) {
-        return "nada";
-    }
 }
