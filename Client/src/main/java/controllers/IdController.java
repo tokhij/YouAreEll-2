@@ -38,6 +38,10 @@ public class IdController {
     }
 
     public Id postId(Id id) {
+        TransactionController tC = new TransactionController();
+        String jsonInString = tC.makeURLCall("/ids", "POST", "");
+
+
         return null;
     }
 
