@@ -1,6 +1,7 @@
 package youareell;
 
 import controllers.*;
+import models.Id;
 
 public class YouAreEll {
 
@@ -21,5 +22,11 @@ public class YouAreEll {
     public String get_messages() {
         return "Nada"; //MakeURLCall("/messages", "GET", "");
     }
+
+    public Id post_ids(Id id) {
+        return idCtrl.postId(id);
+    }
+
+
 
 }

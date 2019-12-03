@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Id;
@@ -38,11 +39,15 @@ public class IdController {
     }
 
     public Id postId(Id id) {
+        ObjectMapper mapper = new ObjectMapper();
         TransactionController tC = new TransactionController();
-        String jsonInString = tC.makeURLCall("/ids", "POST", "");
-
-
-        return null;
+        try {
+            String payload = mapper.writeValueAsString(id);
+            tC.makeURLCall("/ids", "POST", payload);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     public Id putId(Id id) {

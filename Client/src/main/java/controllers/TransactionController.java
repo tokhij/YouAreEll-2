@@ -12,7 +12,16 @@ public class TransactionController {
     public TransactionController() {
     }
 
-    public String makeURLCall(String address, String method, String body) {
+    public void makeURLCall(String address, String method, String payload) {
+        if(method.equalsIgnoreCase("post")){
+            post(address, method, payload);
+        }
+        if(method.equalsIgnoreCase("get")){
+            get(address, method);
+        }
+    }
+
+    public String get(String address, String method){
         HttpURLConnection connection = null;
 
         try {
@@ -36,5 +45,25 @@ public class TransactionController {
             return "{}";
         }
     }
+
+    public String post(String address, String method, String payload){
+        HttpURLConnection connection = null;
+
+        try {
+            //Create connection
+            URL url = new URL(rootURL + address);
+            connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("POST");
+
+        } catch (Exception e) {
+            System.out.println("Error 400");
+            e.printStackTrace();
+            return null;
+
+
+
+    }
+
+
 }
 
