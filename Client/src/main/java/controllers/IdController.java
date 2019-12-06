@@ -1,42 +1,48 @@
 package controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import models.Id;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 public class IdController {
-    Id myId;
+    private TransactionController transactionController = new TransactionController();
 
-    public ArrayList<Id> getIds() {
-
-        ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Id> ids = new ArrayList<Id>();
-
-        try {
-            // Convert JSON string to Object
-            TransactionController tC = new TransactionController();
-            String jsonInString = tC.makeURLCall("/ids", "GET", "");
-            Id idArray[] = mapper.readValue(jsonInString, Id[].class);
-            ids = new ArrayList(Arrays.asList(idArray));
-
-        }
-        catch (JsonGenerationException e) {
-            e.printStackTrace();
-        }
-        catch (JsonMappingException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ids;
+    public String getIds() {
+        return transactionController.makeURLCall("/ids", "GET", "");
     }
+
+    public ArrayList<Id> parseIds(String payload){
+        Type listType = new TypeToken<List<Id>>() {}.getType();
+        return new Gson().fromJson(payload, listType);
+    }
+//        ObjectMapper mapper = new ObjectMapper();
+//        ArrayList<Id> ids = new ArrayList<Id>();
+//        String jsonInString = TransactionController.makeURLCall("/ids", "GET", "");
+//
+//        try {
+//            // Convert JSON string to Object
+//            TransactionController tC = new TransactionController();
+//            Id idArray[] = mapper.readValue(jsonInString, Id[].class);
+//            ids = new ArrayList(Arrays.asList(idArray));
+//
+//        }
+//        catch (JsonGenerationException e) {
+//            e.printStackTrace();
+//        }
+//        catch (JsonMappingException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return ids;
+//    }
 
     public Id postId(Id id) {
         ObjectMapper mapper = new ObjectMapper();

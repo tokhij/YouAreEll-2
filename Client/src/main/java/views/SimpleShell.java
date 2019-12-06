@@ -90,6 +90,11 @@ public class SimpleShell {
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
+
+                if (list.contains("messages") && list.size() == 3) {
+
+
+                }
                 // you need to add a bunch more.
 
                 //!! command returns the last command in history
